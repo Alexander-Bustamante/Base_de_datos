@@ -19,7 +19,7 @@ VALUES
 
 INSERT INTO `usuarios` (`username`, `password`, `email`, `created`, `modified`, `usuario_id`, `delete`, `RUT`, `id_tipo_usuario`)
 VALUES 
-('juanperez', 'pass123', 'juan.perez@example.com', NOW(), NOW(), 1, 0, 12345678, 2),
+('juanperez', 'pass123', 'juan.perez@example.com', NOW(), NOW(), 1, 0, 12345678, 1),
 ('mariagomez', 'pass456', 'maria.gomez@example.com', NOW(), NOW(), 1, 0, 23456789, 2),
 ('carloslopez', 'pass789', 'carlos.lopez@example.com', NOW(), NOW(), 1, 0, 34567890, 2),
 ('anamartinez', 'pass012', 'ana.martinez@example.com', NOW(), NOW(), 1, 0, 45678901, 2),
@@ -73,10 +73,10 @@ VALUES
 (104, 220, NOW(), NOW(), 1, 0, 4, 4, 5, 4),
 (105, 170, NOW(), NOW(), 1, 0, 5, 5, 1, 5);
 
-INSERT INTO `usuarios_has_viajes` (`usuarios_id_usuarios`, `viajes_id_viajes`)
+INSERT INTO `usuarios_has_viajes` (`usuarios_id_usuarios`, `viajes_id_viajes`, `created`, `modified`, `usuario_id`, `delete`)
 VALUES 
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5);
+(1, 1, NOW(), NOW(), 1, 0),
+(2, 2, NOW(), NOW(), 1, 0),
+(3, 3, NOW(), NOW(), 1, 0),
+(4, 4, NOW(), NOW(), 1, 0),
+(5, 5, NOW(), NOW(), 1, 0);

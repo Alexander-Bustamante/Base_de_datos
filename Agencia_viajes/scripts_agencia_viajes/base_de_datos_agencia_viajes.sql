@@ -212,6 +212,10 @@ CREATE INDEX `fk_viajes_tarifa1_idx` ON `agencia_viajes`.`viajes` (`id_tarifa` A
 CREATE TABLE IF NOT EXISTS `agencia_viajes`.`usuarios_has_viajes` (
   `usuarios_id_usuarios` INT NOT NULL,
   `viajes_id_viajes` INT NOT NULL,
+  `created` DATETIME NOT NULL,
+  `modified` DATETIME NOT NULL,
+  `usuario_id` INT NOT NULL,
+  `delete` TINYINT NOT NULL,
   PRIMARY KEY (`usuarios_id_usuarios`, `viajes_id_viajes`),
   CONSTRAINT `fk_usuarios_has_viajes_usuarios`
     FOREIGN KEY (`usuarios_id_usuarios`)
