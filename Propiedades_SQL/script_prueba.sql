@@ -47,7 +47,31 @@ ON UPDATE CURRENT_TIMESTAMP,
 	deleted BOOLEAN DEFAULT FALSE
 );
 
-insert into tipo_usuarios(nombre_tipo, descripcion_tipo, created_by, updated_by) values(
-"Gerente","Encargado de supervisar a los empleados y gestionados administrativo", 1, 1);
+CREATE TABLE ventas (
+	id_venta INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
+	updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+ON UPDATE CURRENT_TIMESTAMP, 
+	created_by INT NOT NULL,
+	updated_by INT NOT NULL,
+	deleted BOOLEAN DEFAULT FALSE,
+	id_usuario INT NOT NULL
+);
 
-select * from tipo_usuarios;
+ALTER TABLE ventas ADD CONSTRAINT fk_ventas_usuario FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario);
+
+CREATE TABLE detalle_ventas (
+	id_detalle_venta INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    cantidad INT NOT NULL,
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+	updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+ON UPDATE CURRENT_TIMESTAMP, 
+	created_by INT NOT NULL,
+	updated_by INT NOT NULL,
+	deleted BOOLEAN DEFAULT FALSE,
+    id_venta INT NOT NULL,
+    id_producto INT NOT NULL
+);
+
+ALTER TABLE detalle_ventas ADD CONSTRAINT fk_detalle_ventas_ventas FOREIGN KEY (id_venta) REFERENCES ventas(id_venta);
+ALTER TABLE detalle_ventas ADD CONSTRAINT fk_detalle_ventas_productos FOREIGN KEY (id_producto) REFERENCES productos(id_producto);
