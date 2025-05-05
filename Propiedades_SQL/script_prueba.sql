@@ -1,7 +1,7 @@
 
-drop database if exists sistema_ventas;
-create database sistema_ventas;
-use sistema_ventas;
+drop database if exists sistema_ventas_4C;
+create database sistema_ventas_4C;
+use sistema_ventas_4C;
 
 -- Creamos la tabla tipo_usuario
 CREATE TABLE tipo_usuarios (
@@ -75,3 +75,9 @@ ON UPDATE CURRENT_TIMESTAMP,
 
 ALTER TABLE detalle_ventas ADD CONSTRAINT fk_detalle_ventas_ventas FOREIGN KEY (id_venta) REFERENCES ventas(id_venta);
 ALTER TABLE detalle_ventas ADD CONSTRAINT fk_detalle_ventas_productos FOREIGN KEY (id_producto) REFERENCES productos(id_producto);
+
+ALTER TABLE tipo_usuarios CHANGE COLUMN nombre_tipo name_type VARCHAR(50) NOT NULL;
+
+ALTER TABLE ventas CHANGE COLUMN fecha dated DATETIME DEFAULT CURRENT_TIMESTAMP;
+
+ALTER TABLE detalle_ventas CHANGE COLUMN cantidad amount INT NOT NULL;
