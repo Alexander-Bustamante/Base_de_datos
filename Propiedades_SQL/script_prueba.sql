@@ -189,3 +189,13 @@ INSERT INTO detalle_ventas (amount, created_by, updated_by, id_venta, id_product
 	2,
     2
 );
+
+UPDATE usuarios SET deleted = true where id_usuario = 1;
+
+
+select * from usuarios where deleted = 1;
+select * from usuarios where id_tipo = 1;
+select * from usuarios where username like "V%";	
+select * from usuarios where created_at between '2025-05-28' and '2025-07-01';
+
+
