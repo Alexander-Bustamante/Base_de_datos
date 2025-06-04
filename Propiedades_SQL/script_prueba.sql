@@ -198,4 +198,8 @@ select * from usuarios where id_tipo = 1;
 select * from usuarios where username like "V%";	
 select * from usuarios where created_at between '2025-05-28' and '2025-07-01';
 
-
+select * from productos where precio between 900 and 1300;
+select * from detalle_ventas where amount < 30 and amount > 5;
+select * from productos where nombre like 'G%' or nombre like 'C%';
+select * from productos where stock between 20 and 30;
+select * from tipo_usuarios where name_type like "V%" and id_tipo > 1;
