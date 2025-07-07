@@ -1,5 +1,5 @@
 -- Creación de la base de datos
-DROP SCHEMA IF EXISTS `ejemploSelect`;
+DROP DATABASE IF EXISTS `ejemploSelect`;
 CREATE DATABASE ejemploSelect;
 USE ejemploSelect;
 

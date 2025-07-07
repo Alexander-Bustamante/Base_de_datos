@@ -28,14 +28,14 @@ INSERT INTO ciudad (nombre_ciudad, region, created_by, updated_by) VALUES
 ('Puerto Montt', 'Región de Los Lagos', 1, 1);
 
 -- Poblar tabla personas (relacionadas con usuarios y ciudades)
-INSERT INTO personas (rut, nombre_completo, fecha_nac, id_usuario, id_ciudad) VALUES
-('11.111.111-1', 'Juan Valdes', '1990-04-12', 2, 1),
-('22.222.222-2', 'Camila Morales', '1985-09-25', 3, 2),
-('33.333.333-3', 'Andrea Navarro', '1992-11-03', 4, 3),
-('44.444.444-4', 'Rodrigo Quezada', '1980-06-17', 5, 1),
-('55.555.555-5', 'Patricio Godoy', '1998-12-01', 6, 4),
-('66.666.666-6', 'Maria Diaz', '1987-07-14', 7, 5),
-('77.777.777-7', 'Sebastian Carvajal', '1993-03-22', 8, 2),
-('88.888.888-8', 'Lorena Tapia', '2000-10-10', 9, 3),
-('99.999.999-9', 'Ana Farias', '1995-01-28', 10, 4),
-('10.101.010-0', 'Carlos Soto', '1991-08-08', 1, 1); -- admin01
+INSERT INTO personas (rut, nombre_completo, fecha_nac, created_by, updated_by, id_usuario, id_ciudad) VALUES
+('11.111.111-1', 'Juan Valdes', '1990-04-12', 1, 1, 2, 1),
+('22.222.222-2', 'Camila Morales', '1985-09-25', 1, 1, 3, 2),
+('33.333.333-3', 'Andrea Navarro', '1992-11-03', 1, 1, 4, 3),
+('44.444.444-4', 'Rodrigo Quezada', '1980-06-17', 1, 1, 5, 1),
+('55.555.555-5', 'Patricio Godoy', '1998-12-01', 1, 1, 6, 4),
+('66.666.666-6', 'Maria Diaz', '1987-07-14', 1, 1, 7, 5),
+('77.777.777-7', 'Sebastian Carvajal', '1993-03-22', 1, 1, 8, 2),
+('88.888.888-8', 'Lorena Tapia', '2000-10-10', 1, 1, 9, 3),
+('99.999.999-9', 'Ana Farias', '1995-01-28', 1, 1, 10, 4),
+('10.101.010-0', 'Carlos Soto', '1991-08-08', 1, 1, 1, 1); -- admin01
