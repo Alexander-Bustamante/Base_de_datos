@@ -14,12 +14,12 @@ SELECT p.nombre_completo , u.email FROM usuarios u, personas p WHERE p.nombre_co
 
 -- 4.- Mostrar usuarios cuyos dominios de correo sean
 -- mail.commit LIKE '%mail.com%'
-
+SELECT id_usuario, username, email FROM usuarios WHERE email LIKE "%mail.com%";
 
 -- 5.- Mostrar todas las personas que no viven en 
  -- Valparaiso y su usuario + ciudad.
  -- select * from ciudad; -- ID 2 VALPARAISO
-
+SELECT u.username , c.nombre_ciudad FROM usuarios u, ciudad c, personas p WHERE c.id_ciudad != 2 and p.id_ciudad = c.id_ciudad AND p.id_usuario = u.id_usuario;
 
 -- 6.- Mostrar usuarios que contengan más de 7 
 -- carácteres de longitud.
