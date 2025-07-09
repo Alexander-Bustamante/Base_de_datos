@@ -6,7 +6,7 @@ SELECT u.username, u.email, t.nombre_tipo FROM usuarios u, tipo_usuarios t WHERE
 
 -- 2.-  Mostrar Personas nacidas despues del año 1990
 -- Seleccionar Nombre, fecha de nacimiento y username.
-SELECT rut, nombre_completo FROM personas WHERE "1990-01-01" <= fecha_nac;
+SELECT p.rut, p.nombre_completo, p.fecha_nac, u.username FROM personas p, usuarios u WHERE "1990-01-01" <= fecha_nac AND u.id_usuario = p.id_usuario;
 
 -- 3.- Seleccionar nombres de personas que comiencen con la 
 -- letra A - Seleccionar nombre y correo la persona.
@@ -23,7 +23,8 @@ SELECT u.username , c.nombre_ciudad FROM usuarios u, ciudad c, personas p WHERE 
 
 -- 6.- Mostrar usuarios que contengan más de 7 
 -- carácteres de longitud.
-
+SELECT id_usuario, username, email FROM usuarios WHERE length(username) > 7;
 
 -- 7.- Mostrar username de personas nacidas entre
 -- 1990 y 1995
+SELECT u.username, p.fecha_nac FROM usuarios u, personas p WHERE p.fecha_nac BETWEEN "1990-01-01" and "1995-12-31" and p.id_usuario = u.id_usuario;
