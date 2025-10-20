@@ -8,22 +8,22 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema edukit
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `mydb` ;
+DROP SCHEMA IF EXISTS `edukit` ;
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema edukit
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `edukit` DEFAULT CHARACTER SET utf8 ;
+USE `edukit` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`historiales`
+-- Table `edukit`.`historiales`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`historiales` ;
+DROP TABLE IF EXISTS `edukit`.`historiales` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`historiales` (
+CREATE TABLE IF NOT EXISTS `edukit`.`historiales` (
   `id_Historiales` INT NOT NULL AUTO_INCREMENT, -- Identificador único del historial
   `promedio_mensual` INT NOT NULL CHECK (`promedio_mensual` BETWEEN 1 AND 100), -- Promedio mensual entre 1 y 100
   `fecha` DATE NOT NULL, -- Fecha del registro del historial
@@ -37,11 +37,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`personas`
+-- Table `edukit`.`personas`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`personas` ;
+DROP TABLE IF EXISTS `edukit`.`personas` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`personas` (
+CREATE TABLE IF NOT EXISTS `edukit`.`personas` (
   `RUT` INT NOT NULL CHECK (`RUT` BETWEEN 1000000 AND 99999999), -- RUT chileno sin dígito verificador (7-8 dígitos)
   `nombre` VARCHAR(50) NOT NULL CHECK (`nombre` REGEXP '^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$'), -- Solo letras y espacios
   `apellido` VARCHAR(50) NOT NULL CHECK (`apellido` REGEXP '^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$'), -- Solo letras y espacios
@@ -56,22 +56,22 @@ CREATE TABLE IF NOT EXISTS `mydb`.`personas` (
   PRIMARY KEY (`RUT`, `id_Historiales`),
   CONSTRAINT `fk_personas_historiales1`
     FOREIGN KEY (`id_Historiales`)
-    REFERENCES `mydb`.`historiales` (`id_Historiales`)
+    REFERENCES `edukit`.`historiales` (`id_Historiales`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE UNIQUE INDEX `RUT_UNIQUE` ON `mydb`.`personas` (`RUT` ASC) VISIBLE;
+CREATE UNIQUE INDEX `RUT_UNIQUE` ON `edukit`.`personas` (`RUT` ASC) VISIBLE;
 
-CREATE INDEX `fk_personas_historiales1_idx` ON `mydb`.`personas` (`id_Historiales` ASC) VISIBLE;
+CREATE INDEX `fk_personas_historiales1_idx` ON `edukit`.`personas` (`id_Historiales` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`tipos_usuarios`
+-- Table `edukit`.`tipos_usuarios`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`tipos_usuarios` ;
+DROP TABLE IF EXISTS `edukit`.`tipos_usuarios` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`tipos_usuarios` (
+CREATE TABLE IF NOT EXISTS `edukit`.`tipos_usuarios` (
   `id_tipo_usuarios` INT NOT NULL AUTO_INCREMENT, -- Identificador único del tipo de usuario
   `nombre_tipo` VARCHAR(50) NOT NULL CHECK (`nombre_tipo` IN ('Administrador', 'Docente', 'Estudiante', 'Coordinador')), -- Tipos de usuario permitidos
   `descripcion_tipo` VARCHAR(300) NOT NULL, -- Descripción detallada del tipo de usuario
@@ -85,11 +85,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`cargo`
+-- Table `edukit`.`cargo`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`cargo` ;
+DROP TABLE IF EXISTS `edukit`.`cargo` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`cargo` (
+CREATE TABLE IF NOT EXISTS `edukit`.`cargo` (
   `id_cargo` INT NOT NULL AUTO_INCREMENT, -- Identificador único del cargo
   `nombre_cargo` VARCHAR(45) NOT NULL CHECK (`nombre_cargo` IN ('Director', 'Subdirector', 'Coordinador', 'Docente', 'Asistente')), -- Nombres de cargo permitidos
   `descripcion_cargo` VARCHAR(45) NOT NULL, -- Descripción breve del cargo
@@ -103,11 +103,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`asignatura`
+-- Table `edukit`.`asignatura`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`asignatura` ;
+DROP TABLE IF EXISTS `edukit`.`asignatura` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`asignatura` (
+CREATE TABLE IF NOT EXISTS `edukit`.`asignatura` (
   `id_asignatura` INT NOT NULL AUTO_INCREMENT, -- Identificador único de la asignatura
   `nombre_asig` VARCHAR(45) NOT NULL CHECK (`nombre_asig` REGEXP '^[A-Za-z0-9ÁÉÍÓÚáéíóúÑñ\\s]+$'), -- Nombre de asignatura (solo letras, números y espacios)
   `descripcion_asig` VARCHAR(45) NOT NULL, -- Descripción breve de la asignatura
@@ -121,11 +121,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`tipos_institucion`
+-- Table `edukit`.`tipos_institucion`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`tipos_institucion` ;
+DROP TABLE IF EXISTS `edukit`.`tipos_institucion` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`tipos_institucion` (
+CREATE TABLE IF NOT EXISTS `edukit`.`tipos_institucion` (
   `id_tipos_institucion` INT NOT NULL AUTO_INCREMENT, -- Identificador único del tipo de institución
   `nombre_tipo` VARCHAR(50) NOT NULL CHECK (`nombre_tipo` IN ('Escuela', 'Liceo', 'Colegio', 'Universidad', 'Instituto')), -- Tipos de institución educativa permitidos
   `descripcion_tipo` VARCHAR(300) NOT NULL, -- Descripción detallada del tipo de institución
@@ -139,11 +139,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`instituciones`
+-- Table `edukit`.`instituciones`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`instituciones` ;
+DROP TABLE IF EXISTS `edukit`.`instituciones` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`instituciones` (
+CREATE TABLE IF NOT EXISTS `edukit`.`instituciones` (
   `id_instituciones` INT NOT NULL AUTO_INCREMENT, -- Identificador único de la institución
   `nombre` VARCHAR(100) NOT NULL, -- Nombre completo de la institución
   `direccion` VARCHAR(100) NOT NULL, -- Dirección física de la institución
@@ -157,20 +157,20 @@ CREATE TABLE IF NOT EXISTS `mydb`.`instituciones` (
   PRIMARY KEY (`id_instituciones`, `id_tipos_institucion`),
   CONSTRAINT `fk_instituciones_tipos_institucion1`
     FOREIGN KEY (`id_tipos_institucion`)
-    REFERENCES `mydb`.`tipos_institucion` (`id_tipos_institucion`)
+    REFERENCES `edukit`.`tipos_institucion` (`id_tipos_institucion`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_instituciones_tipos_institucion1_idx` ON `mydb`.`instituciones` (`id_tipos_institucion` ASC) VISIBLE;
+CREATE INDEX `fk_instituciones_tipos_institucion1_idx` ON `edukit`.`instituciones` (`id_tipos_institucion` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`tipo_capacitaciones`
+-- Table `edukit`.`tipo_capacitaciones`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`tipo_capacitaciones` ;
+DROP TABLE IF EXISTS `edukit`.`tipo_capacitaciones` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`tipo_capacitaciones` (
+CREATE TABLE IF NOT EXISTS `edukit`.`tipo_capacitaciones` (
   `id_tipo_capacitaciones` INT NOT NULL AUTO_INCREMENT, -- Identificador único del tipo de capacitación
   `nombre_tipo` VARCHAR(45) NOT NULL CHECK (`nombre_tipo` IN ('Presencial', 'Online', 'Híbrido', 'Seminario', 'Taller')), -- Modalidades de capacitación permitidas
   `descripcion_tipo` VARCHAR(45) NOT NULL, -- Descripción breve del tipo de capacitación
@@ -184,11 +184,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`capacitaciones`
+-- Table `edukit`.`capacitaciones`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`capacitaciones` ;
+DROP TABLE IF EXISTS `edukit`.`capacitaciones` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`capacitaciones` (
+CREATE TABLE IF NOT EXISTS `edukit`.`capacitaciones` (
   `id_capacitaciones` INT NOT NULL AUTO_INCREMENT, -- Identificador único de la capacitación
   `nombre` VARCHAR(45) NOT NULL, -- Nombre de la capacitación
   `duracion_horas` VARCHAR(45) NOT NULL CHECK (`duracion_horas` REGEXP '^[0-9]+(\\.[0-9]+)?\\s*(horas|hrs|h)$'), -- Duración en formato: número + horas/hrs/h
@@ -201,23 +201,23 @@ CREATE TABLE IF NOT EXISTS `mydb`.`capacitaciones` (
   PRIMARY KEY (`id_capacitaciones`, `id_tipo_capacitaciones`),
   CONSTRAINT `fk_capacitaciones_tipo_capacitaciones1`
     FOREIGN KEY (`id_tipo_capacitaciones`)
-    REFERENCES `mydb`.`tipo_capacitaciones` (`id_tipo_capacitaciones`)
+    REFERENCES `edukit`.`tipo_capacitaciones` (`id_tipo_capacitaciones`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_capacitaciones_tipo_capacitaciones1_idx` ON `mydb`.`capacitaciones` (`id_tipo_capacitaciones` ASC) VISIBLE;
+CREATE INDEX `fk_capacitaciones_tipo_capacitaciones1_idx` ON `edukit`.`capacitaciones` (`id_tipo_capacitaciones` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`usuarios`
+-- Table `edukit`.`usuarios`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`usuarios` ;
+DROP TABLE IF EXISTS `edukit`.`usuarios` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`usuarios` (
+CREATE TABLE IF NOT EXISTS `edukit`.`usuarios` (
   `id_usuarios` INT NOT NULL AUTO_INCREMENT, -- Identificador único del usuario
   `username` VARCHAR(100) NOT NULL CHECK (`username` REGEXP '^[a-zA-Z0-9_]{4,50}$'), -- Nombre de usuario (solo letras, números y guión bajo)
-  `password` VARCHAR(50) NOT NULL CHECK (LENGTH(`password`) >= 8), -- Contraseña con mínimo 8 caracteres
+  `passwords` VARCHAR(50) NOT NULL CHECK (LENGTH(`passwords`) >= 8), -- Contraseña con mínimo 8 caracteres
   `email` VARCHAR(50) NOT NULL CHECK (`email` REGEXP '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$'), -- Email personal válido
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Fecha de creación del registro
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Fecha de última actualización
@@ -233,47 +233,47 @@ CREATE TABLE IF NOT EXISTS `mydb`.`usuarios` (
   PRIMARY KEY (`id_usuarios`, `id_tipo_usuarios`, `RUT`, `id_cargo`, `id_asignatura`, `id_instituciones`, `id_capacitaciones`),
   CONSTRAINT `fk_usuarios_tipos_usuarios`
     FOREIGN KEY (`id_tipo_usuarios`)
-    REFERENCES `mydb`.`tipos_usuarios` (`id_tipo_usuarios`)
+    REFERENCES `edukit`.`tipos_usuarios` (`id_tipo_usuarios`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuarios_personas1`
     FOREIGN KEY (`RUT`)
-    REFERENCES `mydb`.`personas` (`RUT`)
+    REFERENCES `edukit`.`personas` (`RUT`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuarios_cargo1`
     FOREIGN KEY (`id_cargo`)
-    REFERENCES `mydb`.`cargo` (`id_cargo`)
+    REFERENCES `edukit`.`cargo` (`id_cargo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuarios_asignatura1`
     FOREIGN KEY (`id_asignatura`)
-    REFERENCES `mydb`.`asignatura` (`id_asignatura`)
+    REFERENCES `edukit`.`asignatura` (`id_asignatura`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuarios_instituciones1`
     FOREIGN KEY (`id_instituciones`)
-    REFERENCES `mydb`.`instituciones` (`id_instituciones`)
+    REFERENCES `edukit`.`instituciones` (`id_instituciones`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_usuarios_capacitaciones1`
     FOREIGN KEY (`id_capacitaciones`)
-    REFERENCES `mydb`.`capacitaciones` (`id_capacitaciones`)
+    REFERENCES `edukit`.`capacitaciones` (`id_capacitaciones`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_usuarios_tipos_usuarios_idx` ON `mydb`.`usuarios` (`id_tipo_usuarios` ASC) VISIBLE;
+CREATE INDEX `fk_usuarios_tipos_usuarios_idx` ON `edukit`.`usuarios` (`id_tipo_usuarios` ASC) VISIBLE;
 
-CREATE INDEX `fk_usuarios_personas1_idx` ON `mydb`.`usuarios` (`RUT` ASC) VISIBLE;
+CREATE INDEX `fk_usuarios_personas1_idx` ON `edukit`.`usuarios` (`RUT` ASC) VISIBLE;
 
-CREATE INDEX `fk_usuarios_cargo1_idx` ON `mydb`.`usuarios` (`id_cargo` ASC) VISIBLE;
+CREATE INDEX `fk_usuarios_cargo1_idx` ON `edukit`.`usuarios` (`id_cargo` ASC) VISIBLE;
 
-CREATE INDEX `fk_usuarios_asignatura1_idx` ON `mydb`.`usuarios` (`id_asignatura` ASC) VISIBLE;
+CREATE INDEX `fk_usuarios_asignatura1_idx` ON `edukit`.`usuarios` (`id_asignatura` ASC) VISIBLE;
 
-CREATE INDEX `fk_usuarios_instituciones1_idx` ON `mydb`.`usuarios` (`id_instituciones` ASC) VISIBLE;
+CREATE INDEX `fk_usuarios_instituciones1_idx` ON `edukit`.`usuarios` (`id_instituciones` ASC) VISIBLE;
 
-CREATE INDEX `fk_usuarios_capacitaciones1_idx` ON `mydb`.`usuarios` (`id_capacitaciones` ASC) VISIBLE;
+CREATE INDEX `fk_usuarios_capacitaciones1_idx` ON `edukit`.`usuarios` (`id_capacitaciones` ASC) VISIBLE;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
