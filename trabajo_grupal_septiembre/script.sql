@@ -24,14 +24,14 @@ USE `edukit` ;
 DROP TABLE IF EXISTS `edukit`.`historiales` ;
 
 CREATE TABLE IF NOT EXISTS `edukit`.`historiales` (
-  `id_Historiales` INT NOT NULL AUTO_INCREMENT, -- Identificador único del historial
-  `promedio_mensual` INT NOT NULL CHECK (`promedio_mensual` BETWEEN 1 AND 100), -- Promedio mensual entre 1 y 100
-  `fecha` DATE NOT NULL, -- Fecha del registro del historial
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Fecha de creación del registro
-  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Fecha de última actualización
-  `created_by` INT NOT NULL DEFAULT 0, -- Usuario que creó el registro
-  `updated_by` INT NOT NULL DEFAULT 0, -- Usuario que actualizó el registro
-  `deleted` TINYINT NOT NULL DEFAULT 0, -- Indica si el registro está eliminado (0=activo, 1=eliminado)
+  `id_Historiales` INT NOT NULL AUTO_INCREMENT,
+  `promedio_mensual` INT NOT NULL,
+  `fecha` DATE NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` INT NOT NULL DEFAULT 0,
+  `updated_by` INT NOT NULL DEFAULT 0,
+  `deleted` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_Historiales`))
 ENGINE = InnoDB;
 
@@ -42,18 +42,18 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `edukit`.`personas` ;
 
 CREATE TABLE IF NOT EXISTS `edukit`.`personas` (
-  `RUT` INT NOT NULL CHECK (`RUT` BETWEEN 1000000 AND 99999999), -- RUT chileno sin dígito verificador (7-8 dígitos)
-  `nombre` VARCHAR(50) NOT NULL CHECK (`nombre` REGEXP '^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$'), -- Solo letras y espacios
-  `apellido` VARCHAR(50) NOT NULL CHECK (`apellido` REGEXP '^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$'), -- Solo letras y espacios
-  `fecha_nac` DATE NOT NULL CHECK (`fecha_nac` <= '2025-10-06'), -- Fecha de nacimiento no mayor a hoy
-  `direccion` VARCHAR(200) NOT NULL, -- Dirección completa de la persona
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Fecha de creación del registro
-  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Fecha de última actualización
-  `created_by` INT NOT NULL DEFAULT 0, -- Usuario que creó el registro
-  `updated_by` INT NOT NULL DEFAULT 0, -- Usuario que actualizó el registro
-  `deleted` TINYINT NOT NULL DEFAULT 0, -- Indica si el registro está eliminado (0=activo, 1=eliminado)
-  `id_Historiales` INT NOT NULL, -- Referencia al historial académico
-  PRIMARY KEY (`RUT`, `id_Historiales`),
+  `RUT` INT NOT NULL,
+  `nombre` VARCHAR(50) NOT NULL,
+  `apellido` VARCHAR(50) NOT NULL,
+  `fecha_nac` DATE NOT NULL,
+  `direccion` VARCHAR(200) NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` INT NOT NULL DEFAULT 0,
+  `updated_by` INT NOT NULL DEFAULT 0,
+  `deleted` TINYINT NOT NULL DEFAULT 0,
+  `id_Historiales` INT NOT NULL,
+  PRIMARY KEY (`RUT`),
   CONSTRAINT `fk_personas_historiales1`
     FOREIGN KEY (`id_Historiales`)
     REFERENCES `edukit`.`historiales` (`id_Historiales`)
@@ -72,14 +72,14 @@ CREATE INDEX `fk_personas_historiales1_idx` ON `edukit`.`personas` (`id_Historia
 DROP TABLE IF EXISTS `edukit`.`tipos_usuarios` ;
 
 CREATE TABLE IF NOT EXISTS `edukit`.`tipos_usuarios` (
-  `id_tipo_usuarios` INT NOT NULL AUTO_INCREMENT, -- Identificador único del tipo de usuario
-  `nombre_tipo` VARCHAR(50) NOT NULL CHECK (`nombre_tipo` IN ('Administrador', 'Docente', 'Estudiante', 'Coordinador')), -- Tipos de usuario permitidos
-  `descripcion_tipo` VARCHAR(300) NOT NULL, -- Descripción detallada del tipo de usuario
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Fecha de creación del registro
-  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Fecha de última actualización
-  `created_by` INT NOT NULL DEFAULT 0, -- Usuario que creó el registro
-  `updated_by` INT NOT NULL DEFAULT 0, -- Usuario que actualizó el registro
-  `deleted` TINYINT NOT NULL DEFAULT 0, -- Indica si el registro está eliminado (0=activo, 1=eliminado)
+  `id_tipo_usuarios` INT NOT NULL AUTO_INCREMENT,
+  `nombre_tipo` VARCHAR(50) NOT NULL,
+  `descripcion_tipo` VARCHAR(300) NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` INT NOT NULL DEFAULT 0,
+  `updated_by` INT NOT NULL DEFAULT 0,
+  `deleted` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_tipo_usuarios`))
 ENGINE = InnoDB;
 
@@ -90,14 +90,14 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `edukit`.`cargo` ;
 
 CREATE TABLE IF NOT EXISTS `edukit`.`cargo` (
-  `id_cargo` INT NOT NULL AUTO_INCREMENT, -- Identificador único del cargo
-  `nombre_cargo` VARCHAR(45) NOT NULL CHECK (`nombre_cargo` IN ('Director', 'Subdirector', 'Coordinador', 'Docente', 'Asistente')), -- Nombres de cargo permitidos
-  `descripcion_cargo` VARCHAR(45) NOT NULL, -- Descripción breve del cargo
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Fecha de creación del registro
-  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Fecha de última actualización
-  `created_by` INT NOT NULL DEFAULT 0, -- Usuario que creó el registro
-  `updated_by` INT NOT NULL DEFAULT 0, -- Usuario que actualizó el registro
-  `deleted` TINYINT NOT NULL DEFAULT 0, -- Indica si el registro está eliminado (0=activo, 1=eliminado)
+  `id_cargo` INT NOT NULL AUTO_INCREMENT,
+  `nombre_cargo` VARCHAR(45) NOT NULL,
+  `descripcion_cargo` VARCHAR(45) NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` INT NOT NULL DEFAULT 0,
+  `updated_by` INT NOT NULL DEFAULT 0,
+  `deleted` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_cargo`))
 ENGINE = InnoDB;
 
@@ -108,14 +108,14 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `edukit`.`asignatura` ;
 
 CREATE TABLE IF NOT EXISTS `edukit`.`asignatura` (
-  `id_asignatura` INT NOT NULL AUTO_INCREMENT, -- Identificador único de la asignatura
-  `nombre_asig` VARCHAR(45) NOT NULL CHECK (`nombre_asig` REGEXP '^[A-Za-z0-9ÁÉÍÓÚáéíóúÑñ\\s]+$'), -- Nombre de asignatura (solo letras, números y espacios)
-  `descripcion_asig` VARCHAR(45) NOT NULL, -- Descripción breve de la asignatura
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Fecha de creación del registro
-  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Fecha de última actualización
-  `created_by` INT NOT NULL DEFAULT 0, -- Usuario que creó el registro
-  `updated_by` INT NOT NULL DEFAULT 0, -- Usuario que actualizó el registro
-  `deleted` TINYINT NOT NULL DEFAULT 0, -- Indica si el registro está eliminado (0=activo, 1=eliminado)
+  `id_asignatura` INT NOT NULL AUTO_INCREMENT,
+  `nombre_asig` VARCHAR(45) NOT NULL,
+  `descripcion_asig` VARCHAR(45) NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` INT NOT NULL DEFAULT 0,
+  `updated_by` INT NOT NULL DEFAULT 0,
+  `deleted` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_asignatura`))
 ENGINE = InnoDB;
 
@@ -126,14 +126,14 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `edukit`.`tipos_institucion` ;
 
 CREATE TABLE IF NOT EXISTS `edukit`.`tipos_institucion` (
-  `id_tipos_institucion` INT NOT NULL AUTO_INCREMENT, -- Identificador único del tipo de institución
-  `nombre_tipo` VARCHAR(50) NOT NULL CHECK (`nombre_tipo` IN ('Escuela', 'Liceo', 'Colegio', 'Universidad', 'Instituto')), -- Tipos de institución educativa permitidos
-  `descripcion_tipo` VARCHAR(300) NOT NULL, -- Descripción detallada del tipo de institución
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Fecha de creación del registro
-  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Fecha de última actualización
-  `created_by` INT NOT NULL DEFAULT 0, -- Usuario que creó el registro
-  `updated_by` INT NOT NULL DEFAULT 0, -- Usuario que actualizó el registro
-  `deleted` TINYINT NOT NULL DEFAULT 0, -- Indica si el registro está eliminado (0=activo, 1=eliminado)
+  `id_tipos_institucion` INT NOT NULL AUTO_INCREMENT,
+  `nombre_tipo` VARCHAR(50) NOT NULL,
+  `descripcion_tipo` VARCHAR(300) NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` INT NOT NULL DEFAULT 0,
+  `updated_by` INT NOT NULL DEFAULT 0,
+  `deleted` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_tipos_institucion`))
 ENGINE = InnoDB;
 
@@ -144,17 +144,17 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `edukit`.`instituciones` ;
 
 CREATE TABLE IF NOT EXISTS `edukit`.`instituciones` (
-  `id_instituciones` INT NOT NULL AUTO_INCREMENT, -- Identificador único de la institución
-  `nombre` VARCHAR(100) NOT NULL, -- Nombre completo de la institución
-  `direccion` VARCHAR(100) NOT NULL, -- Dirección física de la institución
-  `email` VARCHAR(100) NOT NULL CHECK (`email` REGEXP '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$'), -- Email institucional válido
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Fecha de creación del registro
-  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Fecha de última actualización
-  `created_by` INT NOT NULL DEFAULT 0, -- Usuario que creó el registro
-  `updated_by` INT NOT NULL DEFAULT 0, -- Usuario que actualizó el registro
-  `deleted` TINYINT NOT NULL DEFAULT 0, -- Indica si el registro está eliminado (0=activo, 1=eliminado)
-  `id_tipos_institucion` INT NOT NULL, -- Referencia al tipo de institución
-  PRIMARY KEY (`id_instituciones`, `id_tipos_institucion`),
+  `id_instituciones` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(100) NOT NULL,
+  `direccion` VARCHAR(100) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` INT NOT NULL DEFAULT 0,
+  `updated_by` INT NOT NULL DEFAULT 0,
+  `deleted` TINYINT NOT NULL DEFAULT 0,
+  `id_tipos_institucion` INT NOT NULL,
+  PRIMARY KEY (`id_instituciones`),
   CONSTRAINT `fk_instituciones_tipos_institucion1`
     FOREIGN KEY (`id_tipos_institucion`)
     REFERENCES `edukit`.`tipos_institucion` (`id_tipos_institucion`)
@@ -171,14 +171,14 @@ CREATE INDEX `fk_instituciones_tipos_institucion1_idx` ON `edukit`.`institucione
 DROP TABLE IF EXISTS `edukit`.`tipo_capacitaciones` ;
 
 CREATE TABLE IF NOT EXISTS `edukit`.`tipo_capacitaciones` (
-  `id_tipo_capacitaciones` INT NOT NULL AUTO_INCREMENT, -- Identificador único del tipo de capacitación
-  `nombre_tipo` VARCHAR(45) NOT NULL CHECK (`nombre_tipo` IN ('Presencial', 'Online', 'Híbrido', 'Seminario', 'Taller')), -- Modalidades de capacitación permitidas
-  `descripcion_tipo` VARCHAR(45) NOT NULL, -- Descripción breve del tipo de capacitación
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Fecha de creación del registro
-  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Fecha de última actualización
-  `created_by` INT NOT NULL DEFAULT 0, -- Usuario que creó el registro
-  `updated_by` INT NOT NULL DEFAULT 0, -- Usuario que actualizó el registro
-  `deleted` TINYINT NOT NULL DEFAULT 0, -- Indica si el registro está eliminado (0=activo, 1=eliminado)
+  `id_tipo_capacitaciones` INT NOT NULL AUTO_INCREMENT,
+  `nombre_tipo` VARCHAR(45) NOT NULL,
+  `descripcion_tipo` VARCHAR(45) NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` INT NOT NULL DEFAULT 0,
+  `updated_by` INT NOT NULL DEFAULT 0,
+  `deleted` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`id_tipo_capacitaciones`))
 ENGINE = InnoDB;
 
@@ -189,16 +189,16 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `edukit`.`capacitaciones` ;
 
 CREATE TABLE IF NOT EXISTS `edukit`.`capacitaciones` (
-  `id_capacitaciones` INT NOT NULL AUTO_INCREMENT, -- Identificador único de la capacitación
-  `nombre` VARCHAR(45) NOT NULL, -- Nombre de la capacitación
-  `duracion_horas` VARCHAR(45) NOT NULL CHECK (`duracion_horas` REGEXP '^[0-9]+(\\.[0-9]+)?\\s*(horas|hrs|h)$'), -- Duración en formato: número + horas/hrs/h
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Fecha de creación del registro
-  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Fecha de última actualización
-  `created_by` INT NOT NULL DEFAULT 0, -- Usuario que creó el registro
-  `updated_by` INT NOT NULL DEFAULT 0, -- Usuario que actualizó el registro
-  `deleted` TINYINT NOT NULL DEFAULT 0, -- Indica si el registro está eliminado (0=activo, 1=eliminado)
-  `id_tipo_capacitaciones` INT NOT NULL, -- Referencia al tipo de capacitación
-  PRIMARY KEY (`id_capacitaciones`, `id_tipo_capacitaciones`),
+  `id_capacitaciones` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `duracion_horas` VARCHAR(45) NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` INT NOT NULL DEFAULT 0,
+  `updated_by` INT NOT NULL DEFAULT 0,
+  `deleted` TINYINT NOT NULL DEFAULT 0,
+  `id_tipo_capacitaciones` INT NOT NULL,
+  PRIMARY KEY (`id_capacitaciones`),
   CONSTRAINT `fk_capacitaciones_tipo_capacitaciones1`
     FOREIGN KEY (`id_tipo_capacitaciones`)
     REFERENCES `edukit`.`tipo_capacitaciones` (`id_tipo_capacitaciones`)
@@ -215,22 +215,22 @@ CREATE INDEX `fk_capacitaciones_tipo_capacitaciones1_idx` ON `edukit`.`capacitac
 DROP TABLE IF EXISTS `edukit`.`usuarios` ;
 
 CREATE TABLE IF NOT EXISTS `edukit`.`usuarios` (
-  `id_usuarios` INT NOT NULL AUTO_INCREMENT, -- Identificador único del usuario
-  `username` VARCHAR(100) NOT NULL CHECK (`username` REGEXP '^[a-zA-Z0-9_]{4,50}$'), -- Nombre de usuario (solo letras, números y guión bajo)
-  `passwords` VARCHAR(50) NOT NULL CHECK (LENGTH(`passwords`) >= 8), -- Contraseña con mínimo 8 caracteres
-  `email` VARCHAR(50) NOT NULL CHECK (`email` REGEXP '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$'), -- Email personal válido
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Fecha de creación del registro
-  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Fecha de última actualización
-  `created_by` INT NOT NULL DEFAULT 0, -- Usuario que creó el registro
-  `updated_by` INT NOT NULL DEFAULT 0, -- Usuario que actualizó el registro
-  `deleted` TINYINT NOT NULL DEFAULT 0, -- Indica si el registro está eliminado (0=activo, 1=eliminado)
-  `id_tipo_usuarios` INT NOT NULL, -- Referencia al tipo de usuario
-  `RUT` INT NOT NULL, -- Referencia a la persona
-  `id_cargo` INT NOT NULL, -- Referencia al cargo
-  `id_asignatura` INT NOT NULL, -- Referencia a la asignatura
-  `id_instituciones` INT NOT NULL, -- Referencia a la institución
-  `id_capacitaciones` INT NOT NULL, -- Referencia a la capacitación
-  PRIMARY KEY (`id_usuarios`, `id_tipo_usuarios`, `RUT`, `id_cargo`, `id_asignatura`, `id_instituciones`, `id_capacitaciones`),
+  `id_usuarios` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(100) NOT NULL,
+  `passwords` VARCHAR(50) NOT NULL,
+  `email` VARCHAR(50) NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` INT NOT NULL DEFAULT 0,
+  `updated_by` INT NOT NULL DEFAULT 0,
+  `deleted` TINYINT NOT NULL DEFAULT 0,
+  `id_tipo_usuarios` INT NOT NULL,
+  `RUT` INT NOT NULL,
+  `id_cargo` INT NULL,
+  `id_asignatura` INT NULL,
+  `id_instituciones` INT NULL,
+  `id_capacitaciones` INT NULL,
+  PRIMARY KEY (`id_usuarios`),
   CONSTRAINT `fk_usuarios_tipos_usuarios`
     FOREIGN KEY (`id_tipo_usuarios`)
     REFERENCES `edukit`.`tipos_usuarios` (`id_tipo_usuarios`)
@@ -264,17 +264,11 @@ CREATE TABLE IF NOT EXISTS `edukit`.`usuarios` (
 ENGINE = InnoDB;
 
 CREATE INDEX `fk_usuarios_tipos_usuarios_idx` ON `edukit`.`usuarios` (`id_tipo_usuarios` ASC) VISIBLE;
-
 CREATE INDEX `fk_usuarios_personas1_idx` ON `edukit`.`usuarios` (`RUT` ASC) VISIBLE;
-
 CREATE INDEX `fk_usuarios_cargo1_idx` ON `edukit`.`usuarios` (`id_cargo` ASC) VISIBLE;
-
 CREATE INDEX `fk_usuarios_asignatura1_idx` ON `edukit`.`usuarios` (`id_asignatura` ASC) VISIBLE;
-
 CREATE INDEX `fk_usuarios_instituciones1_idx` ON `edukit`.`usuarios` (`id_instituciones` ASC) VISIBLE;
-
 CREATE INDEX `fk_usuarios_capacitaciones1_idx` ON `edukit`.`usuarios` (`id_capacitaciones` ASC) VISIBLE;
-
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

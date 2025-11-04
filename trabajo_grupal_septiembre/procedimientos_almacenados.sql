@@ -2,6 +2,10 @@
 -- PROCEDIMIENTOS ALMACENADOS PARA TABLA usuarios
 -- =============================================
 
+-- =============================================
+-- PROCEDIMIENTOS ALMACENADOS PARA TABLA usuarios
+-- =============================================
+
 DELIMITER //
 CREATE PROCEDURE insertarUsuarios(
 IN usuario_username VARCHAR(100),
@@ -14,8 +18,17 @@ IN usuario_id_asignatura INT,
 IN usuario_id_instituciones INT,
 IN usuario_id_capacitaciones INT)
 BEGIN
-	INSERT INTO usuarios(username, passwords, email, id_tipo_usuarios, RUT, id_cargo, id_asignatura, id_instituciones, id_capacitaciones) VALUES
-		(usuario_username, usuario_passwords, usuario_email, usuario_id_tipo_usuarios, usuario_RUT, usuario_id_cargo, usuario_id_asignatura, usuario_id_instituciones, usuario_id_capacitaciones);
+    INSERT INTO usuarios(
+        username, passwords, email, 
+        id_tipo_usuarios, RUT, 
+        id_cargo, id_asignatura, 
+        id_instituciones, id_capacitaciones
+    ) VALUES (
+        usuario_username, usuario_passwords, usuario_email, 
+        usuario_id_tipo_usuarios, usuario_RUT, 
+        usuario_id_cargo, usuario_id_asignatura, 
+        usuario_id_instituciones, usuario_id_capacitaciones
+    );
 END// 
 DELIMITER ;
 
