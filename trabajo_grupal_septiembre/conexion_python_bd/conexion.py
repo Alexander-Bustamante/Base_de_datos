@@ -5,7 +5,7 @@ import mysql.connector
 DB_CONFIG = {
     "host": "localhost",      # Servidor donde corre MySQL (local en este caso)
     "user": "root",           # Usuario con permisos de acceso  
-    "password": "Chupaelperro13", # Reemplaza con la contraseña real o déjalo vacío si no tiene
+    "password": "1234", # Reemplaza con la contraseña real o déjalo vacío si no tiene
     "database": "edukit",      # Nombre de la base de datos a utilizar
     "port": 3306          # (Opcional) solo si tu MySQL usa un puerto distinto
 }
